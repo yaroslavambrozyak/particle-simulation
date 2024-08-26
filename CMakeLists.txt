@@ -14,17 +14,19 @@ include_directories(src)
 
 add_executable(particleSim 
 src/main.cpp 
-src/world.h 
-src/world.cpp 
+src/world/world.h 
+src/world/world.cpp 
 src/simulation.h 
 src/simulation.cpp 
 src/screen.h 
 src/screen.cpp 
-src/particle/movable.h 
+ 
 src/particle/particle.h 
 src/particle/particle.cpp 
-src/particle/sand.h
-)
+src/particle/sand.h 
+src/particle/sand.cpp 
+src/world/world_cell.h
+src/world/world_cell.cpp)
 
 target_link_libraries(particleSim PRIVATE sfml-graphics)
 target_compile_features(particleSim PRIVATE cxx_std_17)

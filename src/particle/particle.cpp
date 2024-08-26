@@ -7,7 +7,3 @@ Particle::Particle(Color color)
 {
 }
 
-EmptyParticle::EmptyParticle()
-	: Particle(Color{ 0,0,0 })
-{
-}
