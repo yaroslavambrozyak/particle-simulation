@@ -24,35 +24,51 @@ World::~World()
 
 void World::addParticle(size_t x, size_t y, Particle* particle)
 {
-	size_t pos = getIndex(x, y);
-	m_worldGrid[pos]->setParticle(particle);
-	m_worldGrid[pos]->updated = true;
+	int64_t index = getIndex(x, y);
+	if (index >= 0)
+	{
+		m_worldGrid[index]->setParticle(particle);
+	}
 }
 
 WorldCell* World::getCell(size_t x, size_t y)
 {
-	if (x >= m_width || y >= m_height) {
-		return 0;
+	size_t index = getIndex(x, y);
+	if (index < 0)
+	{
+		return nullptr;
 	}
-	size_t pos = getIndex(x, y);
-	return m_worldGrid[pos];
+
+	return m_worldGrid[index];
 }
 
 void World::moveParticle(size_t xFrom, size_t yFrom, size_t xTo, size_t yTo)
 {
-	size_t pos = getIndex(xFrom, yFrom);
-	Particle* particle = m_worldGrid[pos]->removeParticle();
-	addParticle(xTo, yTo, particle);
+	size_t indexFrom = getIndex(xFrom, yFrom);
+	int64_t indexTo = getIndex(xTo, yTo);
+	if (indexFrom >= 0 && indexTo >= 0)
+	{
+		Particle* particle = m_worldGrid[indexFrom]->removeParticle();
+		addParticle(xTo, yTo, particle);
+	}
 }
 
 bool World::isCellFree(size_t x, size_t y)
 {
-	size_t pos = getIndex(x, y);
-	if (y > 159) return false;
-	return m_worldGrid[pos]->isEmpty();
+	int64_t index = getIndex(x, y);
+	if (index < 0)
+	{
+		return false;
+	}
+
+	return m_worldGrid[index]->isEmpty();
 }
 
-size_t World::getIndex(size_t x, size_t y)
+int64_t World::getIndex(size_t x, size_t y)
 {
+	if (x < 0 || x >= m_width || y < 0 || y >= m_height) 
+	{
+		return -1;
+	}
 	return m_width * x + y;
 }

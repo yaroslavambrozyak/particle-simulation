@@ -25,16 +25,16 @@ bool WorldCell::isEmpty()
 
 Particle* WorldCell::removeParticle()
 {
-	int b = 3;
 	Particle* particle = m_particle;
 	m_particle = 0;
-	int a = 2;
+	updated = true;
 	return particle;
 }
 
 void WorldCell::setParticle(Particle* particle)
 {
 	m_particle = particle;
+	updated = true;
 }
 
 Particle* WorldCell::getParticle()

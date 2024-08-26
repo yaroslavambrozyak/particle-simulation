@@ -50,7 +50,7 @@ void Simulation::handleInput()
 		}
 		else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 		{
-			m_world.addParticle(event.mouseButton.x / 5, event.mouseButton.y / 5, new Sand(Color{255,255,255}));
+			m_world.addParticle(event.mouseButton.x / m_simConfig.particleSize, event.mouseButton.y / m_simConfig.particleSize, new Sand(Color{255,255,255}));
 		}
 
 	}
