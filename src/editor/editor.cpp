@@ -16,7 +16,7 @@ void Editor::draw(sf::RenderWindow& window)
 	window.draw(circle);
 }
 
-void Editor::setBrushSize(uint8_t size)
+void Editor::changeBrushSize(uint8_t step)
 {
-	m_brushSize = size;
+	m_brushSize += step;
 }

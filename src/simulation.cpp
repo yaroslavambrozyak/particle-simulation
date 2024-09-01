@@ -63,7 +63,12 @@ void Simulation::handleInput()
 			{
 				leftMouseKeyPressed = false;
 			}
-		}	
+		}
+		else if (event.type == sf::Event::MouseWheelScrolled)
+		{
+			auto delta = event.mouseWheelScroll.delta;
+			m_editor.changeBrushSize(delta);
+		}
 
 	}
 

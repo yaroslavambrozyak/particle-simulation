@@ -1,13 +1,13 @@
 #include <SFML/Graphics.hpp>
-#include <stdint.h>
+
 
 class Editor
 {
 public:
 	void draw(sf::RenderWindow& window);
 
-	void setBrushSize(uint8_t brushRadius);
+	void changeBrushSize(uint8_t step);
 
 private:
-	uint8_t m_brushSize = 25;
+	uint8_t m_brushSize = 5;
 };
