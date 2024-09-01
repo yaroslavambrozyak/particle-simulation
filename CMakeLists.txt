@@ -26,7 +26,11 @@ src/particle/particle.cpp
 src/particle/sand.h 
 src/particle/sand.cpp 
 src/world/world_cell.h
-src/world/world_cell.cpp)
+src/world/world_cell.cpp 
+src/editor/brush.h 
+src/editor/editor.h 
+src/editor/editor.cpp
+)
 
 target_link_libraries(particleSim PRIVATE sfml-graphics)
 target_compile_features(particleSim PRIVATE cxx_std_17)

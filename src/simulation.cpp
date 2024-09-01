@@ -41,6 +41,8 @@ void Simulation::start()
 
 void Simulation::handleInput()
 {
+	static bool leftMouseKeyPressed;
+
 	sf::Event event;
 	while (m_window.pollEvent(event))
 	{
@@ -48,11 +50,27 @@ void Simulation::handleInput()
 		{
 			m_window.close();
 		}
-		else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+		else if (event.type == sf::Event::MouseButtonPressed)
 		{
-			m_world.addParticle(event.mouseButton.x / m_simConfig.particleSize, event.mouseButton.y / m_simConfig.particleSize, new Sand(Color{255,255,255}));
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				leftMouseKeyPressed = true;
+			}
 		}
+		else if (event.type == sf::Event::MouseButtonReleased)
+		{
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				leftMouseKeyPressed = false;
+			}
+		}	
 
+	}
+
+	if (leftMouseKeyPressed)
+	{
+		auto mousePos = sf::Mouse::getPosition(m_window);
+		m_world.addParticle(mousePos.x / m_simConfig.particleSize, mousePos.y / m_simConfig.particleSize, new Sand(Color{ 255, 255, 255 }));
 	}
 }
 
@@ -96,6 +114,8 @@ void Simulation::draw()
 			}
 		}
 	}
+
+	m_editor.draw(m_window);
 
 	m_window.display();
 }

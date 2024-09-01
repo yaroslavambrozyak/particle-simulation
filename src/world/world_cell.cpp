@@ -34,7 +34,6 @@ Particle* WorldCell::removeParticle()
 void WorldCell::setParticle(Particle* particle)
 {
 	m_particle = particle;
-	updated = true;
 }
 
 Particle* WorldCell::getParticle()

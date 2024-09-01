@@ -6,4 +6,12 @@ void Sand::update(size_t xPos, size_t yPos, World& worldGrid)
 	{
 		worldGrid.moveParticle(xPos, yPos, xPos, yPos + 1);
 	}
+	else if (worldGrid.isCellFree(xPos + 1, yPos + 1))
+	{
+		worldGrid.moveParticle(xPos, yPos, xPos + 1, yPos + 1);
+	}
+	else if (worldGrid.isCellFree(xPos - 1, yPos + 1))
+	{
+		worldGrid.moveParticle(xPos, yPos, xPos - 1, yPos + 1);
+	}
 }
