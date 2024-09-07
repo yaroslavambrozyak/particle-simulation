@@ -1,13 +1,16 @@
 #include <SFML/Graphics.hpp>
-
+#include "world/world.h"
 
 class Editor
 {
 public:
-	void draw(sf::RenderWindow& window);
+	Editor(World& world, sf::RenderWindow& window);
 
-	void changeBrushSize(uint8_t step);
+	void draw();
+	void update();
 
 private:
+	World& m_world;
+	sf::RenderWindow& m_window;
 	uint8_t m_brushSize = 5;
 };

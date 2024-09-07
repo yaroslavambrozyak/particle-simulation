@@ -5,7 +5,7 @@ class World;
 class WorldCell
 {
 public:
-	WorldCell(size_t x, size_t y, World& world);
+	WorldCell(size_t x, size_t y, WorldGrid& world);
 
 	bool updated = false;
 
@@ -19,7 +19,7 @@ public:
 private:
 	size_t m_x;
 	size_t m_y;
-	World& m_world;
+	WorldGrid& m_worldGrid;
 	Particle* m_particle = nullptr;
 
 };

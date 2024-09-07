@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <world/world.h>
+#include "world/world.h"
 #include "editor/editor.h"
 
 struct SimulationConfig 
@@ -23,7 +23,6 @@ private:
 	uint32_t m_worldHeight;
 
 	void start();
-	void handleInput();
 	void update();
 	void draw();
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-class World;
+class WorldGrid;
 
 struct Color
 {
@@ -14,5 +14,5 @@ public:
 	Color m_color;
 	
 	Particle(Color color);
-	virtual void update(size_t xPos, size_t yPos, World& worldGrid) = 0;
+	virtual void update(size_t xPos, size_t yPos, WorldGrid& worldGrid) = 0;
 };

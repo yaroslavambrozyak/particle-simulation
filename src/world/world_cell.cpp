@@ -1,11 +1,11 @@
 #include "world_cell.h"
 
 
-WorldCell::WorldCell(size_t x, size_t y, World& world)
+WorldCell::WorldCell(size_t x, size_t y, WorldGrid& world)
 	:
 	m_x(x),
 	m_y(y),
-	m_world(world)
+	m_worldGrid(world)
 {
 }
 
@@ -13,7 +13,7 @@ void WorldCell::update()
 {
 	if (m_particle)
 	{
-		m_particle->update(m_x, m_y, m_world);
+		m_particle->update(m_x, m_y, m_worldGrid);
 	}
 	updated = true;
 }

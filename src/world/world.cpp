@@ -1,74 +1,55 @@
 #include "world.h"
 
-World::World(size_t width, size_t heigh)
-	: 
-	m_width(width),
-	m_height(heigh)
+World::World(uint32_t width, uint32_t height, uint8_t scale, sf::RenderWindow& window)
+	:
+	m_worldGrid(width / scale, height / scale),
+	m_scale(scale),
+	m_window(window)
 {
-	size_t lenght = width * heigh;
-	m_worldGrid = new WorldCell* [lenght];
+}
 
-	for (auto i = 0; i < lenght; i++)
+void World::update()
+{
+	for (uint32_t x = 0; x < m_worldGrid.getWidth(); x++)
 	{
-		size_t pos = i / width;
-		size_t x = pos;
-		size_t y = static_cast<int>(i % width);
-		m_worldGrid[i] = new WorldCell(x, y, *this);
+		for (size_t y = 0; y < m_worldGrid.getHeight(); y++)
+		{
+			WorldCell* worldCell = m_worldGrid.getCell(x, y);
+			if (!worldCell || worldCell->updated)
+			{
+				continue;
+			}
+
+			worldCell->update();
+		}
 	}
 }
 
-World::~World()
+void World::draw()
 {
-	delete[] m_worldGrid;
-}
-
-void World::addParticle(size_t x, size_t y, Particle* particle)
-{
-	int64_t index = getIndex(x, y);
-	if (index >= 0)
+	for (size_t x = 0; x < m_worldGrid.getWidth(); x++)
 	{
-		m_worldGrid[index]->setParticle(particle);
+		for (size_t y = 0; y < m_worldGrid.getHeight(); y++)
+		{
+			WorldCell* worldCell = m_worldGrid.getCell(x, y);
+
+			if (worldCell && !worldCell->isEmpty())
+			{
+				worldCell->updated = false;
+				sf::RectangleShape particleShape = sf::RectangleShape();
+				particleShape.setFillColor(sf::Color::White);
+
+				particleShape.setPosition(x * m_scale, y * m_scale);
+				particleShape.setSize(sf::Vector2f(m_scale, m_scale));
+				m_window.draw(particleShape);
+			}
+		}
 	}
 }
 
-WorldCell* World::getCell(size_t x, size_t y)
+void World::addParticle(uint32_t x, uint32_t y, Particle* particle)
 {
-	size_t index = getIndex(x, y);
-	if (index < 0)
-	{
-		return nullptr;
-	}
-
-	return m_worldGrid[index];
-}
-
-void World::moveParticle(size_t xFrom, size_t yFrom, size_t xTo, size_t yTo)
-{
-	size_t indexFrom = getIndex(xFrom, yFrom);
-	int64_t indexTo = getIndex(xTo, yTo);
-	if (indexFrom >= 0 && indexTo >= 0)
-	{
-		Particle* particle = m_worldGrid[indexFrom]->removeParticle();
-		addParticle(xTo, yTo, particle);
-	}
-}
-
-bool World::isCellFree(size_t x, size_t y)
-{
-	int64_t index = getIndex(x, y);
-	if (index < 0)
-	{
-		return false;
-	}
-
-	return m_worldGrid[index]->isEmpty();
-}
-
-int64_t World::getIndex(size_t x, size_t y)
-{
-	if (x < 0 || x >= m_width || y < 0 || y >= m_height) 
-	{
-		return -1;
-	}
-	return m_width * x + y;
+	uint32_t xGridPos = x / m_scale;
+	uint32_t yGridPos = y / m_scale;
+	m_worldGrid.addParticle(xGridPos, yGridPos, particle);
 }

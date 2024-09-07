@@ -1,6 +1,6 @@
 #include "sand.h"
 
-void Sand::update(size_t xPos, size_t yPos, World& worldGrid)
+void Sand::update(size_t xPos, size_t yPos, WorldGrid& worldGrid)
 {
 	if (worldGrid.isCellFree(xPos, yPos + 1))
 	{

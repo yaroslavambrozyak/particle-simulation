@@ -14,8 +14,8 @@ include_directories(src)
 
 add_executable(particleSim 
 src/main.cpp 
-src/world/world.h 
-src/world/world.cpp 
+src/world/world_grid.h 
+src/world/world_grid.cpp 
 src/simulation.h 
 src/simulation.cpp 
 src/screen.h 
@@ -30,7 +30,8 @@ src/world/world_cell.cpp
 src/editor/brush.h 
 src/editor/editor.h 
 src/editor/editor.cpp
-)
+src/world/world.h 
+src/world/world.cpp)
 
 target_link_libraries(particleSim PRIVATE sfml-graphics)
 target_compile_features(particleSim PRIVATE cxx_std_17)
