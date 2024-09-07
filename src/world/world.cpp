@@ -37,7 +37,11 @@ void World::draw()
 			{
 				worldCell->updated = false;
 				sf::RectangleShape particleShape = sf::RectangleShape();
-				particleShape.setFillColor(sf::Color::White);
+
+				Color particleColor = worldCell->getParticle()->m_color;
+				sf::Color color(particleColor.r, particleColor.g, particleColor.b);
+
+				particleShape.setFillColor(color);
 
 				particleShape.setPosition(x * m_scale, y * m_scale);
 				particleShape.setSize(sf::Vector2f(m_scale, m_scale));

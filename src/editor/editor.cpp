@@ -46,7 +46,7 @@ void Editor::update()
 	if (leftMouseKeyPressed)
 	{
 		auto mousePos = sf::Mouse::getPosition(m_window);
-		m_world.addParticle(mousePos.x, mousePos.y, new Sand(Color{ 255, 255, 255 }));
+		m_world.addParticle(mousePos.x, mousePos.y, new Sand(Color{ 216, 197, 133 }));
 	}
 }
 
