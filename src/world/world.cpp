@@ -55,5 +55,9 @@ void World::addParticle(uint32_t x, uint32_t y, Particle* particle)
 {
 	uint32_t xGridPos = x / m_scale;
 	uint32_t yGridPos = y / m_scale;
-	m_worldGrid.addParticle(xGridPos, yGridPos, particle);
+	bool cellFree = m_worldGrid.isCellFree(xGridPos, yGridPos);
+	if (cellFree)
+	{
+		m_worldGrid.addParticle(xGridPos, yGridPos, particle);
+	}
 }

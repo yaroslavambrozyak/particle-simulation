@@ -13,4 +13,6 @@ private:
 	World& m_world;
 	sf::RenderWindow& m_window;
 	uint8_t m_brushSize = 5;
+
+	void spawnParticle(uint32_t, uint32_t);
 };

@@ -2,6 +2,9 @@
 #include "world/world.h"
 #include "particle/sand.h"
 
+
+
+
 Editor::Editor(World& world, sf::RenderWindow& window)
 	:
 	m_world(world),
@@ -46,7 +49,7 @@ void Editor::update()
 	if (leftMouseKeyPressed)
 	{
 		auto mousePos = sf::Mouse::getPosition(m_window);
-		m_world.addParticle(mousePos.x, mousePos.y, new Sand(Color{ 216, 197, 133 }));
+		spawnParticle(mousePos.x, mousePos.y);
 	}
 }
 
@@ -64,4 +67,21 @@ void Editor::draw()
 	circle.setPosition(mousePos.x, mousePos.y);
 	
 	m_window.draw(circle);
+}
+
+void Editor::spawnParticle(uint32_t x, uint32_t y)
+{
+	uint8_t brushRadius = m_brushSize;
+
+	uint8_t particleSize = brushRadius * brushRadius;
+
+	while (particleSize > 0)
+	{
+		auto theta = 2 * 3.1415 * (((double)rand() / (RAND_MAX)) + 1);
+		uint8_t randRadius = std::rand() % (brushRadius + 1);
+		uint32_t xP = x + randRadius * cos(theta);
+		uint32_t yP = y + randRadius * sin(theta);
+		m_world.addParticle(xP, yP, new Sand(Color{ 216, 197, 133 }));
+		particleSize--;
+	}
 }
